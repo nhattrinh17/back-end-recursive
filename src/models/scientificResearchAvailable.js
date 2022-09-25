@@ -9,8 +9,8 @@ const ScientificResearchAvailableSchema = new Schema({
         data: Buffer,
         contentType: String,
     },
-    countLike: { type: Int8Array, default: null },
-    scored: { type: Int8Array, default: null },
+    countLike: { type: Number, default: null },
+    scored: { type: Number, default: null },
     createAt: { type: Date, default: Date.now },
 });
 

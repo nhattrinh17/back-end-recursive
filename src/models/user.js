@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         data: Buffer,
         contentType: String,
     },
-    codeSudentOrLecturers: { type: Int16Array, required: true },
+    codeSudentOrLecturers: { type: Number, required: true },
     isAdmin: { type: Boolean, default: false },
     isInstructor: { type: Boolean, default: false },
     isExamTeacher: { type: Boolean, default: false },

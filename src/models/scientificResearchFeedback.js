@@ -6,7 +6,7 @@ const ScientificResearchFeedbackSchema = new Schema({
     IdArticleOrExam: { type: String, required: true },
     IdUserComment: { type: String, required: true },
     commnet: { type: String, required: true },
-    countLike: { type: Int8Array, default: null },
+    countLike: { type: Number, default: null },
     createAt: { type: Date, default: Date.now },
 });
 
