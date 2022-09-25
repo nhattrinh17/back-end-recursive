@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ExamSchema = new Schema({
-    idExamSubject: { type: String, require: true },
+    idExamSubject: { type: String, required: true },
     fileExam: {
         data: Buffer,
         contentType: String,
     },
-    userPost: { type: String, require: true },
+    userPost: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
 });
 

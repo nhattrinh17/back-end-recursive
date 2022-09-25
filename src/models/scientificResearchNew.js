@@ -10,7 +10,7 @@ const ScientificResearchNewSchema = new Schema({
         contentType: String,
     },
     studentLeader: { type: String, required: true },
-    listStudentParticipating: { type: String, required: true },
+    listStudentParticipating: { type: [String], required: true },
     instructor: { type: String, required: true },
     countLike: { type: Int8Array, default: null },
     scored: { type: Int8Array, default: null },

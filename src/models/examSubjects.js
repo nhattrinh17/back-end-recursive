@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ExamSubjectsSchema = new Schema({
-    name: { type: String, require: true },
-    school: { type: String, require: true },
-    userCreate: { type: String, require: true },
+    name: { type: String, required: true },
+    school: { type: String, required: true },
+    userCreate: { type: String, required: true },
     imgSchool: {
         data: Buffer,
         contentType: String,
     },
-    idDepartment: { type: String, require: true },
+    idDepartment: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
 });
 
