@@ -34,6 +34,16 @@ const authMiddleware = {
             }
         });
     },
+    verifilyTokenAndAdminOrAuth: async (req, res, next) => {
+        const idUser = req.params.id;
+        authMiddleware.verifilyToken(req, res, () => {
+            if (req.user.isAdmin || req.user.id == idUser) {
+                next();
+            } else {
+                return res.status(403).send('You are not authorized to perform this action');
+            }
+        });
+    },
 };
 
 module.exports = authMiddleware;

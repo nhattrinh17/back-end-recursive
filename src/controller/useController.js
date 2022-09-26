@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 const User = require('../models/user');
 const UserToken = require('../models/userToken');
@@ -18,7 +19,7 @@ const userController = {
             },
             process.env.JWT_ACCESS_KEY,
             {
-                expiresIn: '10m',
+                expiresIn: '1d',
             },
         );
     },
@@ -41,7 +42,7 @@ const userController = {
         );
     },
 
-    userRerister: async (req, res) => {
+    userRegister: async (req, res) => {
         const { firstName, lastName, email, password, codeSudentOrLecturers } = req.body;
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
@@ -115,6 +116,89 @@ const userController = {
         UserToken.findByIdAndDelete(idToken)
             .then((data) => res.status(200).send('Sign out successful'))
             .catch((error) => res.status(400).send('Logout failed, please try again later'));
+    },
+
+    getUserByObject: async (req, res) => {
+        const type = req.query.type;
+        if (type == 'student') {
+            User.find({ isStudent: true })
+                .then((data) => res.status(200).send(data))
+                .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
+        } else if (type == 'instructor') {
+            User.find({ isInstructor: true })
+                .then((data) => res.status(200).send(data))
+                .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
+        } else if (type == 'examteacher') {
+            User.find({ isExamTeacher: true })
+                .then((data) => res.status(200).send(data))
+                .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
+        } else {
+            return res.status(404).send('This object does not exist, please try again');
+        }
+    },
+
+    getUserById: async (req, res) => {
+        const idUser = req.params.id;
+        User.findById(idUser)
+            .then((data) => {
+                const { firstName, lastName, email, codeSudentOrLecturers } = data;
+                const dataResponse = { firstName, lastName, email, codeSudentOrLecturers };
+                return res.status(200).send(dataResponse);
+            })
+            .catch((error) => res.status(403).send('Id does not exist, please try again'));
+    },
+
+    getAvatarUserById: async (req, res) => {
+        const idUser = req.params.id;
+        User.findById(idUser)
+            .then((data) => {
+                const dataImage = data.avatar.image;
+                const img = Buffer.from(dataImage, 'base64');
+                res.writeHead(200, {
+                    'Content-Type': 'image/png',
+                    'Content-Length': img.length,
+                });
+                res.end(img);
+            })
+            .catch((error) => res.status(403).send('Id does not exist, please try again'));
+    },
+
+    updateUser: async (req, res) => {
+        const { firstName, lastName, email, codeSudentOrLecturers } = req.body;
+        User.findById(req.params.id).then((data) => {
+            const { password, isAdmin, isExamTeacher, isInstructor, isStudent } = data;
+            const img = fs.readFileSync(req.file.path);
+            const encode_img = img.toString('base64');
+            const final_img = {
+                contentType: req.file.mimetype,
+                image: new Buffer.from(encode_img, 'base64'),
+            };
+            const newUser = new User({
+                _id: req.params.id,
+                firstName,
+                lastName,
+                email,
+                password,
+                avatar: final_img,
+                codeSudentOrLecturers,
+                isAdmin,
+                isInstructor,
+                isExamTeacher,
+                isStudent,
+            });
+            User.updateOne({ _id: req.params.id }, newUser)
+                .then((data) => {
+                    res.send('User profile update successful');
+                })
+                .catch((error) => res.status(403).send('User information correction failed'));
+        });
+    },
+
+    deleteUser: async (req, res) => {
+        const idUser = req.params.id;
+        User.findByIdAndDelete(idUser)
+            .then((data) => res.status(200).send('Delete user successfully'))
+            .catch((error) => res.status(403).send('Delete user failed'));
     },
 };
 

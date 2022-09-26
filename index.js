@@ -2,18 +2,18 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const dataBase = require('./src/config/db');
 const router = require('./src/route');
 
 const app = express();
 
-app.use(
-    cors({
-        credentials: true,
-        origin: true,
-    }),
-);
+const corsOptions = {
+    origin: '*', // allow cors origin for all client
+};
+
+app.use('/uploads', express.static('uploads'));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,12 +21,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// app.use(express.json());
+// use cors
+app.use(cors(corsOptions));
 
 dataBase.conect();
 
-const PORT = process.env.PORT || 5000;
-
 router(app);
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
