@@ -20,7 +20,8 @@ const authMiddleware = {
                         }
                     });
                 })
-                .catch((error) => res.status(403).send('Id does not exist'));
+                // .catch((error) => res.status(403).send('Id does not exist'));
+                .catch((error) => res.status(403).send(error.message));
         } else {
             return res.status(404).send('Please try again later or login again');
         }
@@ -38,6 +39,15 @@ const authMiddleware = {
         const idUser = req.params.id;
         authMiddleware.verifilyToken(req, res, () => {
             if (req.user.isAdmin || req.user.id == idUser) {
+                next();
+            } else {
+                return res.status(403).send('You are not authorized to perform this action');
+            }
+        });
+    },
+    verifilyTokenAndAdminOrLecturers: async (req, res, next) => {
+        authMiddleware.verifilyToken(req, res, () => {
+            if (req.user.isAdmin || req.user.is.isInstructor || req.user.isExamTeacher) {
                 next();
             } else {
                 return res.status(403).send('You are not authorized to perform this action');

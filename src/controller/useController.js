@@ -155,7 +155,7 @@ const userController = {
                 const dataImage = data.avatar.image;
                 const img = Buffer.from(dataImage, 'base64');
                 res.writeHead(200, {
-                    'Content-Type': 'image/png',
+                    'Content-Type': data.avatar.contentType,
                     'Content-Length': img.length,
                 });
                 res.end(img);
@@ -166,26 +166,32 @@ const userController = {
     updateUser: async (req, res) => {
         const { firstName, lastName, email, codeSudentOrLecturers } = req.body;
         User.findById(req.params.id).then((data) => {
-            const { password, isAdmin, isExamTeacher, isInstructor, isStudent } = data;
+            const newUser = {
+                firstName,
+                lastName,
+                email,
+                codeSudentOrLecturers,
+                updateAt: Date.now(),
+            };
+            User.updateOne({ _id: req.params.id }, newUser)
+                .then((data) => {
+                    res.send('User profile update successful');
+                })
+                .catch((error) => res.status(403).send('User information correction failed'));
+        });
+    },
+
+    updateAvatarUser: async (req, res) => {
+        User.findById(req.params.id).then((data) => {
             const img = fs.readFileSync(req.file.path);
             const encode_img = img.toString('base64');
             const final_img = {
                 contentType: req.file.mimetype,
                 image: new Buffer.from(encode_img, 'base64'),
             };
-            const newUser = new User({
-                _id: req.params.id,
-                firstName,
-                lastName,
-                email,
-                password,
+            const newUser = {
                 avatar: final_img,
-                codeSudentOrLecturers,
-                isAdmin,
-                isInstructor,
-                isExamTeacher,
-                isStudent,
-            });
+            };
             User.updateOne({ _id: req.params.id }, newUser)
                 .then((data) => {
                     res.send('User profile update successful');
