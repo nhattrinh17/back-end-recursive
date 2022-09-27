@@ -29,8 +29,14 @@ const researchController = {
         const { page = 1 } = req.query;
         if (req.query.name) {
             const name = req.query.name;
-            SientificResearchAvailable.ensureIndexes({ name: 'text' });
+            // SientificResearchAvailable.ensureIndexes({ name: 'text' });
             SientificResearchAvailable.find({ $text: { $search: name } }, { name: 1, description: 1, scored: 1 })
+                .then((data) => res.status(200).send(data))
+                .catch((eror) => {
+                    return res.send(eror.message);
+                });
+        } else {
+            SientificResearchAvailable.find({}, { name: 1, description: 1, scored: 1 })
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
