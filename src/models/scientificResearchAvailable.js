@@ -16,6 +16,6 @@ const ScientificResearchAvailableSchema = new Schema({
 });
 
 // ScientificResearchAvailableSchema.plugin(textSearch);
-// ScientificResearchAvailableSchema.index({ name: 'text' });
+ScientificResearchAvailableSchema.index({ name: 'text' });
 
 module.exports = mongoose.model('scientificResearchAvailable', ScientificResearchAvailableSchema);

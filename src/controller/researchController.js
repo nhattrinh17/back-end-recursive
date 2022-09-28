@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+const ExamAndResearchFeedback = require('../models/examAndResearchFeedback');
 const SientificResearchAvailable = require('../models/scientificResearchAvailable');
 
 const researchController = {
@@ -22,7 +23,36 @@ const researchController = {
         newsSientificResearchAvailable
             .save()
             .then((data) => res.status(200).send('Create a successful scientific paper'))
-            .catch((error) => res.status(403).send(error.message));
+            .catch((error) => res.status(403).send('Retrieving the article failed'));
+    },
+
+    updateResearchPublic: async (req, res) => {
+        const idResearch = req.params.id;
+        const { name, description, scored } = req.body;
+        const updateSientificResearchAvailable = {
+            name,
+            description,
+            scored,
+        };
+        SientificResearchAvailable.findByIdAndUpdate(idResearch, updateSientificResearchAvailable)
+            .then((data) => res.status(200).send('Success research update'))
+            .catch((error) => res.status(403).send('Failed research update'));
+    },
+
+    getImageResearchbyId: async (req, res) => {
+        const idResearch = req.params.id;
+        // res.send(idResearch);
+        SientificResearchAvailable.findById(idResearch)
+            .then((data) => {
+                const dataImage = data.image.data;
+                const img = Buffer.from(dataImage, 'base64');
+                res.writeHead(200, {
+                    'Content-Type': data.image.contentType,
+                    'Content-Length': img.length,
+                });
+                res.end(img);
+            })
+            .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },
 
     getResearchPublic: async (req, res) => {
@@ -30,17 +60,70 @@ const researchController = {
         if (req.query.name) {
             const name = req.query.name;
             // SientificResearchAvailable.ensureIndexes({ name: 'text' });
-            SientificResearchAvailable.find({ $text: { $search: name } }, { name: 1, description: 1, scored: 1 })
+            SientificResearchAvailable.find(
+                { $text: { $search: name } },
+                { name: 1, description: 1, scored: 1, countLike: 1 },
+            )
+                .skip((page - 1) * 10)
+                .limit(10)
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
                 });
         } else {
-            SientificResearchAvailable.find({}, { name: 1, description: 1, scored: 1 })
+            SientificResearchAvailable.find({}, { name: 1, description: 1, scored: 1, countLike: 1 })
+                .skip((page - 1) * 10)
+                .limit(10)
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
                 });
+        }
+    },
+
+    addCommentResearch: async (req, res) => {
+        const idUserComment = req.user.id;
+        const { IdArticleOrExam, commnet } = req.body;
+        const newComment = new ExamAndResearchFeedback({
+            idUserComment,
+            IdArticleOrExam,
+            commnet,
+        });
+        newComment
+            .save()
+            .then((data) => res.status(200).send('Add comment successfully'))
+            .catch((eror) => res.status(403).send('Add failed comment'));
+    },
+
+    getComment: async (req, res) => {
+        const idResearchOrExam = req.params.id;
+        ExamAndResearchFeedback.find({ IdArticleOrExam: idResearchOrExam })
+            .then((data) => {
+                return res.status(200).send(data);
+            })
+            .catch((error) => res.status(403).send('Article or exam id does not exist'));
+    },
+
+    increaseLikeResearchOrComment: async (req, res) => {
+        const { idReaechOrComment, type } = req.body;
+        if (type === 'research') {
+            SientificResearchAvailable.findById(idReaechOrComment)
+                .then((data) => {
+                    const countLike = data.countLike;
+                    SientificResearchAvailable.findByIdAndUpdate(idReaechOrComment, { countLike: countLike + 1 })
+                        .then((data) => res.status(200).send('Increase Like Success'))
+                        .catch((error) => res.status(403).send('Increase Like failed'));
+                })
+                .catch((error) => res.status(403).send('Invalid research id'));
+        } else if (type === 'comment') {
+            ExamAndResearchFeedback.findById(idReaechOrComment)
+                .then((data) => {
+                    const countLike = data.countLike;
+                    ExamAndResearchFeedback.findByIdAndUpdate(idReaechOrComment, { countLike: countLike + 1 })
+                        .then((data) => res.status(200).send('Increase Like Success'))
+                        .catch((error) => res.status(403).send('Increase Like failed'));
+                })
+                .catch((error) => res.status(403).send('Invalid research id'));
         }
     },
 };
