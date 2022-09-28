@@ -17,7 +17,7 @@ jobs:
                   heroku_email: 'trinhminhnhatxt123@gmail.com'
                   env_file: '.env'
               env:
-                  HD_JWT_ACCESS_KEY: '0507'
-                  HD_JWT_REFRESH_KEY: '1108'
-                  HD_PASSWORD: 'admin'
-                  HD_TIMES: '2'
+                  HD_JWT_ACCESS_KEY: 0507
+                  HD_JWT_REFRESH_KEY: 1108
+                  HD_PASSWORD: admin
+                  HD_TIMES: 2
