@@ -98,7 +98,6 @@ const userController = {
                             firstName,
                             lastName,
                             email,
-                            avatar,
                             idToken: tokenUser._id,
                             refreshToken,
                         };
