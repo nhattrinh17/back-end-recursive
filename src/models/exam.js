@@ -4,10 +4,12 @@ const { Schema } = mongoose;
 
 const ExamSchema = new Schema({
     idExamSubject: { type: String, required: true },
+    idDepartment: { type: String, required: require },
     fileExam: {
-        data: Buffer,
+        image: Buffer,
         contentType: String,
     },
+    iduserPost: { type: String, required: true },
     userPost: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
 });
