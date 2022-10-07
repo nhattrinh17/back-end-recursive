@@ -6,7 +6,6 @@ const examRouter = require('./exam');
 function router(app) {
     app.use('/user', userRouter);
     app.use('/research', researchRouter);
-    app.use('/department', departmentRouter);
     app.use('/subject', subjectRouter);
     app.use('/exam', examRouter);
 }
