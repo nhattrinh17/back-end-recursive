@@ -1,6 +1,5 @@
 const userRouter = require('./user');
 const researchRouter = require('./research');
-const departmentRouter = require('./department');
 const subjectRouter = require('./subject');
 const examRouter = require('./exam');
 
