@@ -76,6 +76,7 @@ const userController = {
 
     userLogin: async (req, res) => {
         const { email, password } = req.body;
+        return res.status(200).send(req.body);
         User.findOne({ email: email }).then(async (user) => {
             if (!user) {
                 return res
