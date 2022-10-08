@@ -13,6 +13,6 @@ const ExamSchema = new Schema({
     userPost: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
 });
+ExamSchema.index({ name: 'text' });
 
 module.exports = mongoose.model('exam', ExamSchema);
-ExamSchema.index({ name: 'text' });
