@@ -1,20 +1,20 @@
 const fs = require('fs');
 
-const subject = require('../models/examSubject');
+const examSubjects = require('../models/examSubjects');
 
 const subjectController = {
     getSubjects: async (req, res) => {
         const { page = 1 } = req.query;
         if (req.query.name) {
             const name = req.query.name;
-            subject
+            examSubjects
                 .find({ $text: { $search: name } }, { name: 1 })
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
                 });
         } else {
-            subject
+            examSubjects
                 .find({}, { name: 1 })
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
@@ -32,11 +32,11 @@ const subjectController = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_img, 'base64'),
         };
-        subject.findOne({ name: name, school: school, idDepartment: idDepartment }).then((data) => {
+        examSubjects.findOne({ name: name, school: school, idDepartment: idDepartment }).then((data) => {
             if (data) {
                 return res.status(403).send('Subject already exists');
             } else {
-                const newSubject = new subject({
+                const newSubject = new examSubjects({
                     name,
                     school,
                     imgSchool: final_img,

@@ -15,4 +15,4 @@ const ExamSchema = new Schema({
 });
 
 module.exports = mongoose.model('exam', ExamSchema);
-exam.index({ name: 'text' });
+ExamSchema.index({ name: 'text' });
