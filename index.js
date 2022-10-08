@@ -9,9 +9,8 @@ const router = require('./src/route');
 
 const app = express();
 
-// const corsOptions = {
-//     origin: '*', // allow cors origin for all client
-// };
+// use cors
+app.use(cors());
 
 app.use('/uploads', express.static('uploads'));
 
@@ -20,9 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-
-// use cors
-app.use(cors());
 
 dataBase.conect();
 
