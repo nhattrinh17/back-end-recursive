@@ -10,7 +10,7 @@ const router = require('./src/route');
 const app = express();
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:3000',
+    origin: '*',
 };
 
 // parse application/x-www-form-urlencoded
