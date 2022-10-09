@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // use cors
-// app.use(cors(corsOptions));
+app.use(cors());
 
 dataBase.conect();
 
