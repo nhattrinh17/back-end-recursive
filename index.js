@@ -10,7 +10,8 @@ const router = require('./src/route');
 const app = express();
 
 const corsOptions = {
-    origin: '*', // allow cors origin for all client
+    origin: 'http://localhost:3000/',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 // parse application/x-www-form-urlencoded
