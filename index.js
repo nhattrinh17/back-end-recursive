@@ -9,9 +9,9 @@ const router = require('./src/route');
 
 const app = express();
 
-const corsOptions = {
-    origin: '*',
-};
+// const corsOptions = {
+//     origin: '*',
+// };
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // use cors
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 dataBase.conect();
 
