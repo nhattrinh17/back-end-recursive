@@ -34,7 +34,7 @@ const researchController = {
             description,
             scored,
         };
-        SientificResearchAvailable.findByIdAndUpdate(idResearch, updateSientificResearchAvailable)
+        SientificResearchAvailable.updateOne({ _id: idResearch }, updateSientificResearchAvailable)
             .then((data) => res.status(200).send('Success research update'))
             .catch((error) => res.status(403).send('Failed research update'));
     },
@@ -50,7 +50,7 @@ const researchController = {
         const updateImage = {
             final_img,
         };
-        SientificResearchAvailable.findByIdAndUpdate(idResearch, updateImage)
+        SientificResearchAvailable.updateOne({ _id: idResearch }, updateImage)
             .then((data) => res.status(200).send('Success research update image'))
             .catch((error) => res.status(403).send('Failed research update image'));
     },
