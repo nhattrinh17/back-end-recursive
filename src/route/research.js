@@ -22,6 +22,7 @@ router.post('/comment', authMiddleware.verifilyToken, researchController.addComm
 router.get('/comment/:id', researchController.getComment);
 router.get('/image/:id', researchController.getImageResearchbyId);
 router.put('/like', authMiddleware.verifilyToken, researchController.increaseLikeResearchOrComment);
+router.get('/:id', researchController.getResearchById);
 router.get('/', researchController.getResearchPublic);
 
 module.exports = router;

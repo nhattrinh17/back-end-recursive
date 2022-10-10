@@ -71,6 +71,17 @@ const researchController = {
             .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },
 
+    getResearchById: async (req, res) => {
+        const id = req.params.id;
+        SientificResearchAvailable.findById(id)
+            .then((data) => {
+                return res.status(200).send(data);
+            })
+            .catch((error) => {
+                return res.status(403).send('Id does not exist, please try again');
+            });
+    },
+
     getResearchPublic: async (req, res) => {
         const { page = 1 } = req.query;
         if (req.query.name) {
