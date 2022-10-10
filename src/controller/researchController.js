@@ -110,11 +110,11 @@ const researchController = {
 
     addCommentResearch: async (req, res) => {
         const idUserComment = req.user.id;
-        const { idArticleOrExam, commnet } = req.body;
+        const { idArticleOrExam, comment } = req.body;
         const newComment = {
             idUserComment,
             idArticleOrExam,
-            commnet,
+            comment,
         };
         ExamAndResearchFeedback.create(newComment)
             .then((data) => res.status(200).send('Add comment successfully'))
