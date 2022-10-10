@@ -48,7 +48,7 @@ const researchController = {
             data: new Buffer.from(encode_img, 'base64'),
         };
         const updateImage = {
-            final_img,
+            image: final_img,
         };
         SientificResearchAvailable.updateOne({ _id: idResearch }, updateImage)
             .then((data) => res.status(200).send('Success research update image'))
