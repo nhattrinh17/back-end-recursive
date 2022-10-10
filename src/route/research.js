@@ -19,6 +19,7 @@ router.put(
 router.put(
     '/public/update/image/:id',
     authMiddleware.verifilyTokenAndAdminOrLecturers,
+    upload.single('image'),
     researchController.updateImageResearchPublic,
 );
 router.post('/public/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
