@@ -111,15 +111,14 @@ const researchController = {
     addCommentResearch: async (req, res) => {
         const idUserComment = req.user.id;
         const { idArticleOrExam, commnet } = req.body;
-        const newComment = new ExamAndResearchFeedback({
+        const newComment = {
             idUserComment,
             idArticleOrExam,
             commnet,
-        });
-        newComment
-            .save()
+        };
+        ExamAndResearchFeedback.create(newComment)
             .then((data) => res.status(200).send('Add comment successfully'))
-            .catch((eror) => res.status(403).send('Add failed comment', newComment));
+            .catch((eror) => res.status(403).send('Add failed comment'));
     },
 
     getComment: async (req, res) => {
