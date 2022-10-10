@@ -118,7 +118,7 @@ const researchController = {
         };
         ExamAndResearchFeedback.create(newComment)
             .then((data) => res.status(200).send('Add comment successfully'))
-            .catch((eror) => res.status(403).send('Add failed comment'));
+            .catch((eror) => res.status(403).send(eror.message));
     },
 
     getComment: async (req, res) => {
