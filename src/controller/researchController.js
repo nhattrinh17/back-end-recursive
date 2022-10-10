@@ -75,7 +75,9 @@ const researchController = {
         const id = req.params.id;
         SientificResearchAvailable.findById(id)
             .then((data) => {
-                return res.status(200).send(data);
+                const { name, description, countLike, scored, createAt } = data;
+                const dataRes = { name, description, countLike, scored, createAt };
+                return res.status(200).send(dataRes);
             })
             .catch((error) => {
                 return res.status(403).send('Id does not exist, please try again');
