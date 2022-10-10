@@ -119,7 +119,7 @@ const researchController = {
         newComment
             .save()
             .then((data) => res.status(200).send('Add comment successfully'))
-            .catch((eror) => res.status(403).send('Add failed comment'));
+            .catch((eror) => res.status(403).send('Add failed comment', newComment));
     },
 
     getComment: async (req, res) => {
