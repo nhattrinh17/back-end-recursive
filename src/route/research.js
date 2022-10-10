@@ -6,26 +6,22 @@ const upload = require('../util/storageMulter');
 const router = express.Router();
 
 router.post(
-    '/public/add',
+    '/add',
     authMiddleware.verifilyTokenAndAdminOrLecturers,
     upload.single('image'),
     researchController.addResearchPublic,
 );
+router.put('/update/:id', authMiddleware.verifilyTokenAndAdminOrLecturers, researchController.updateResearchPublic);
 router.put(
-    '/public/update/:id',
-    authMiddleware.verifilyTokenAndAdminOrLecturers,
-    researchController.updateResearchPublic,
-);
-router.put(
-    '/public/update/image/:id',
+    '/update/image/:id',
     authMiddleware.verifilyTokenAndAdminOrLecturers,
     upload.single('image'),
     researchController.updateImageResearchPublic,
 );
-router.post('/public/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
-router.get('/public/comment/:id', researchController.getComment);
-router.get('/public/image/:id', researchController.getImageResearchbyId);
-router.put('/public/like', authMiddleware.verifilyToken, researchController.increaseLikeResearchOrComment);
-router.get('/public', researchController.getResearchPublic);
+router.post('/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
+router.get('/comment/:id', researchController.getComment);
+router.get('/image/:id', researchController.getImageResearchbyId);
+router.put('/like', authMiddleware.verifilyToken, researchController.increaseLikeResearchOrComment);
+router.get('/', researchController.getResearchPublic);
 
 module.exports = router;
