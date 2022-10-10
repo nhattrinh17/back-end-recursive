@@ -6,11 +6,11 @@ const authMiddleware = {
     verifilyToken: async (req, res, next) => {
         const idToken = req.headers.idtoken;
         if (idToken) {
-            UserToken.findById(idToken)
+            await UserToken.findById(idToken)
                 .then(async (data) => {
                     const token = data.tokenUser;
                     const JWT_ACCESS_KEY = process.env.JWT_ACCESS_KEY;
-                    await jwt.verify(token, JWT_ACCESS_KEY, function (error, user) {
+                    jwt.verify(token, JWT_ACCESS_KEY, function (error, user) {
                         if (user) {
                             req.idToken = idToken;
                             req.user = user;
