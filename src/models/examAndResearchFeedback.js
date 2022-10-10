@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ExamAndResearchFeedbackSchema = new Schema({
-    IdArticleOrExam: { type: String, required: true },
+    idArticleOrExam: { type: String, required: true },
     idUserComment: { type: String, required: true },
     commnet: { type: String, required: true },
     countLike: { type: Number, default: null },
