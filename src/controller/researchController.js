@@ -39,6 +39,22 @@ const researchController = {
             .catch((error) => res.status(403).send('Failed research update'));
     },
 
+    updateImageResearchPublic: async (req, res) => {
+        const idResearch = req.params.id;
+        const img = fs.readFileSync(req.file.path);
+        const encode_img = img.toString('base64');
+        const final_img = {
+            contentType: req.file.mimetype,
+            data: new Buffer.from(encode_img, 'base64'),
+        };
+        const updateImage = {
+            final_img,
+        };
+        SientificResearchAvailable.findByIdAndUpdate(idResearch, updateImage)
+            .then((data) => res.status(200).send('Success research update image'))
+            .catch((error) => res.status(403).send('Failed research update image'));
+    },
+
     getImageResearchbyId: async (req, res) => {
         const idResearch = req.params.id;
         // res.send(idResearch);

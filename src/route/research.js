@@ -16,6 +16,11 @@ router.put(
     authMiddleware.verifilyTokenAndAdminOrLecturers,
     researchController.updateResearchPublic,
 );
+router.put(
+    '/public/update/image/:id',
+    authMiddleware.verifilyTokenAndAdminOrLecturers,
+    researchController.updateImageResearchPublic,
+);
 router.post('/public/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
 router.get('/public/comment/:id', researchController.getComment);
 router.get('/public/image/:id', researchController.getImageResearchbyId);
