@@ -7,4 +7,5 @@ const DepartmentSchema = new Schema({
     createAt: { type: Date, default: Date.now },
 });
 
+DepartmentSchema.index({ name: 'text' });
 module.exports = mongoose.model('department', DepartmentSchema);

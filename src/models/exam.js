@@ -4,15 +4,17 @@ const { Schema } = mongoose;
 
 const ExamSchema = new Schema({
     name: { type: String, required: true },
+    idDepartment: { type: String, required: true },
     idExamSubject: { type: String, required: true },
     fileExam: {
-        image: Buffer,
+        data: Buffer,
         contentType: String,
     },
-    iduserPost: { type: String, required: true },
+    idUserPost: { type: String, required: true },
     userPost: { type: String, required: true },
     createAt: { type: Date, default: Date.now },
 });
+
 ExamSchema.index({ name: 'text' });
 
 module.exports = mongoose.model('exam', ExamSchema);

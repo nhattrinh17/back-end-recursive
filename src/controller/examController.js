@@ -25,7 +25,7 @@ const examController = {
                 .catch((eror) => {
                     return res.send(eror.message);
                 });
-        } else if (req.query.idDepartment) {
+        } else if (req.query.idDepartment && !req.query.idExamSubject) {
             const idDepartment = req.query.idDepartment;
             exam.find({ idDepartment: idDepartment }, { name: 1, idDepartment: 1 })
                 .skip((page - 1) * 10)
@@ -34,10 +34,22 @@ const examController = {
                 .catch((eror) => {
                     return res.send(eror.message);
                 });
-        } else if (req.query.idDepartment && req.query.subject) {
+        } else if (req.query.idExamSubject && !req.query.idDepartment) {
+            const idExamSubject = req.query.idExamSubject;
+            exam.find({ idExamSubject: idExamSubject }, { name: 1, idExamSubject: 1 })
+                .skip((page - 1) * 10)
+                .limit(10)
+                .then((data) => res.status(200).send(data))
+                .catch((eror) => {
+                    return res.send(eror.message);
+                });
+        } else {
             const idDepartment = req.query.idDepartment;
-            const idSubject = req.query.idSubject;
-            exam.find({ idDepartment: idDepartment, idSubject: idSubject }, { name: 1, idSubject: 1, idDepartment: 1 })
+            const idExamSubject = req.query.idExamSubject;
+            exam.find(
+                { idExamSubject: idExamSubject, idDepartment: idDepartment },
+                { name: 1, idSubject: 1, idDepartment: 1 },
+            )
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
@@ -48,22 +60,24 @@ const examController = {
     },
 
     addExam: async (req, res) => {
-        const { name, idSubject, idDepartment } = req.body;
+        const { name, idDepartment, idExamSubject, idUserPost, userPost } = req.body;
         const file = fs.readFileSync(req.file.path);
         const encode_file = file.toString('base64');
         const final_file = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_file, 'base64'),
         };
-        exam.findOne({ name: name, idSubject: idSubject, idDepartment: idDepartment }).then((data) => {
+        exam.findOne({ name: name, idExamSubject: idExamSubject, idDepartment: idDepartment }).then((data) => {
             if (data) {
                 return res.status(403).send('Exam already exists');
             } else {
                 const newExam = new exam({
                     name,
-                    idSubject,
                     idDepartment,
+                    idExamSubject,
                     file: final_file,
+                    idUserPost,
+                    userPost,
                 });
                 newExam
                     .save()
@@ -71,6 +85,37 @@ const examController = {
                     .catch((eror) => res.status(403).send('Add failed exam'));
             }
         });
+    },
+
+    updateExam: async (req, res) => {
+        const idExam = req.params.id;
+        const { name, idDepartment, idExamSubject } = req.body;
+        exam.findByIdAndUpdate(idExam, { name, idDepartment, idExamSubject })
+            .then((data) => res.status(200).send('Update exam successfully'))
+            .catch((eror) => res.status(403).send('Update failed exam'));
+    },
+
+    updateExamFile: async (req, res) => {
+        const idExam = req.params.id;
+        const file = fs.readFileSync(req.file.path);
+        const encode_file = file.toString('base64');
+        const final_file = {
+            contentType: req.file.mimetype,
+            data: new Buffer.from(encode_file, 'base64'),
+        };
+        const updateFile = {
+            file: final_file,
+        };
+        exam.findByIdAndUpdate(idExam, { file: updateFile })
+            .then((data) => res.status(200).send('Update exam file successfully'))
+            .catch((eror) => res.status(403).send('Update failed exam file'));
+    },
+
+    deleteExam: async (req, res) => {
+        const idExam = req.params.id;
+        exam.findByIdAndDelete(idExam)
+            .then((data) => res.status(200).send('Delete exam successfully'))
+            .catch((eror) => res.status(403).send('Delete failed exam'));
     },
 };
 

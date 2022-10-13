@@ -40,6 +40,15 @@ const departmentController = {
             }
         });
     },
+
+    deleteDepartment: async (req, res) => {
+        const idUser = req.user.id;
+        const idDepartment = req.params.id;
+        department
+            .findByIdAndDelete(idDepartment)
+            .then((data) => res.status(200).send('Delete department successfully'))
+            .catch((eror) => res.status(403).send('Delete failed department'));
+    },
 };
 
 module.exports = departmentController;

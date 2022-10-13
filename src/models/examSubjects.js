@@ -14,4 +14,5 @@ const ExamSubjectsSchema = new Schema({
     createAt: { type: Date, default: Date.now },
 });
 
+ExamSubjectsSchema.index({ name: 'text' });
 module.exports = mongoose.model('examSubjects', ExamSubjectsSchema);

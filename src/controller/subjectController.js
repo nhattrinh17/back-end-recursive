@@ -50,6 +50,43 @@ const subjectController = {
             }
         });
     },
+
+    deleteSubject: async (req, res) => {
+        const idUser = req.user.id;
+        const idSubject = req.params.id;
+        examSubjects
+            .findByIdAndDelete(idSubject)
+            .then((data) => res.status(200).send('Delete subject successfully'))
+            .catch((eror) => res.status(403).send('Delete failed subject'));
+    },
+
+    updateSubject: async (req, res) => {
+        const idUser = req.user.id;
+        const idSubject = req.params.id;
+        const { name, school, idDepartment } = req.body;
+        examSubjects
+            .findByIdAndUpdate(idSubject, { name, school, idDepartment })
+            .then((data) => res.status(200).send('Update subject successfully'))
+            .catch((eror) => res.status(403).send('Update failed subject'));
+    },
+
+    updateImgSubject: async (req, res) => {
+        const idUser = req.user.id;
+        const idSubject = req.params.id;
+        const img = fs.readFileSync(req.file.path);
+        const encode_img = img.toString('base64');
+        const final_img = {
+            contentType: req.file.mimetype,
+            data: new Buffer.from(encode_img, 'base64'),
+        };
+        const updateImage = {
+            image: final_img,
+        };
+        examSubjects
+            .findByIdAndUpdate(idSubject, { updateImage })
+            .then((data) => res.status(200).send('Update subject successfully'))
+            .catch((eror) => res.status(403).send('Update failed subject'));
+    },
 };
 
 module.exports = subjectController;
