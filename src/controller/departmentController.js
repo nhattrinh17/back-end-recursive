@@ -9,6 +9,8 @@ const departmentController = {
             const name = req.query.name;
             department
                 .find({ $text: { $search: name } }, { name: 1 })
+                .skip((page - 1) * 10)
+                .limit(10)
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
@@ -16,6 +18,8 @@ const departmentController = {
         } else {
             department
                 .find({}, { name: 1 })
+                .skip((page - 1) * 10)
+                .limit(10)
                 .then((data) => res.status(200).send(data))
                 .catch((eror) => {
                     return res.send(eror.message);
