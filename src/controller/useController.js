@@ -65,7 +65,8 @@ const userController = {
                         return res.status(200).send('Account Created Successfully');
                     })
                     .catch((error) => {
-                        return res.status(403).send('Account creation failed. Please try again');
+                        // return res.status(403).send('Account creation failed. Please try again');
+                        return res.status(403).send(error.message);
                     });
             }
         });
