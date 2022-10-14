@@ -12,6 +12,7 @@ const ScientificResearchAvailableSchema = new Schema({
     },
     countLike: { type: Number, default: null },
     scored: { type: Number, required: true },
+    idPublic: { type: Boolean, default: false },
     createAt: { type: Date, default: Date.now },
 });
 
