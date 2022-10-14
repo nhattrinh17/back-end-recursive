@@ -28,7 +28,6 @@ const departmentController = {
     },
 
     addDepartment: async (req, res) => {
-        const idUser = req.user.id;
         const { name } = req.body;
         department.findOne({ name: name }).then((data) => {
             if (data) {
@@ -46,7 +45,6 @@ const departmentController = {
     },
 
     deleteDepartment: async (req, res) => {
-        const idUser = req.user.id;
         const idDepartment = req.params.id;
         department
             .findByIdAndDelete(idDepartment)

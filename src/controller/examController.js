@@ -60,7 +60,8 @@ const examController = {
     },
 
     addExam: async (req, res) => {
-        const { name, idDepartment, idExamSubject, idUserPost, userPost } = req.body;
+        const idUserPost = req.user.id;
+        const { name, idDepartment, idExamSubject, userPost } = req.body;
         const file = fs.readFileSync(req.file.path);
         const encode_file = file.toString('base64');
         const final_file = {
@@ -75,7 +76,7 @@ const examController = {
                     name,
                     idDepartment,
                     idExamSubject,
-                    file: final_file,
+                    fileExam: final_file,
                     idUserPost,
                     userPost,
                 });
@@ -104,9 +105,9 @@ const examController = {
             data: new Buffer.from(encode_file, 'base64'),
         };
         const updateFile = {
-            file: final_file,
+            fileExam: final_file,
         };
-        exam.findByIdAndUpdate(idExam, { file: updateFile })
+        exam.findByIdAndUpdate(idExam, updateFile)
             .then((data) => res.status(200).send('Update exam file successfully'))
             .catch((eror) => res.status(403).send('Update failed exam file'));
     },

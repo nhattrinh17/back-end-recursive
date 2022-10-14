@@ -28,7 +28,6 @@ const subjectController = {
     },
 
     addSubject: async (req, res) => {
-        const idUser = req.user.id;
         const { name, school, userCreate, idDepartment } = req.body;
         const img = fs.readFileSync(req.file.path);
         const encode_img = img.toString('base64');
@@ -56,7 +55,6 @@ const subjectController = {
     },
 
     deleteSubject: async (req, res) => {
-        const idUser = req.user.id;
         const idSubject = req.params.id;
         examSubjects
             .findByIdAndDelete(idSubject)
@@ -65,7 +63,6 @@ const subjectController = {
     },
 
     updateSubject: async (req, res) => {
-        const idUser = req.user.id;
         const idSubject = req.params.id;
         const { name, school, idDepartment } = req.body;
         examSubjects
@@ -75,7 +72,6 @@ const subjectController = {
     },
 
     updateImgSubject: async (req, res) => {
-        const idUser = req.user.id;
         const idSubject = req.params.id;
         const img = fs.readFileSync(req.file.path);
         const encode_img = img.toString('base64');
@@ -84,10 +80,10 @@ const subjectController = {
             data: new Buffer.from(encode_img, 'base64'),
         };
         const updateImage = {
-            image: final_img,
+            imgSchool: final_img,
         };
         examSubjects
-            .findByIdAndUpdate(idSubject, { updateImage })
+            .findByIdAndUpdate(idSubject, updateImage)
             .then((data) => res.status(200).send('Update subject successfully'))
             .catch((eror) => res.status(403).send('Update failed subject'));
     },
