@@ -66,18 +66,18 @@ const researchController = {
             .catch((error) => res.status(403).send('Failed research update'));
     },
 
-    getImageResearchbyId: async (req, res) => {
+    getFileResearchbyId: async (req, res) => {
         const idResearch = req.params.id;
         // res.send(idResearch);
         SientificResearchAvailable.findById(idResearch)
             .then((data) => {
-                const dataImage = data.image.data;
-                const img = Buffer.from(dataImage, 'base64');
+                const dataFile = data.image.data;
+                const file = Buffer.from(dataFile, 'base64');
                 res.writeHead(200, {
                     'Content-Type': data.image.contentType,
-                    'Content-Length': img.length,
+                    'Content-Length': file.length,
                 });
-                res.end(img);
+                res.end(file);
             })
             .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },

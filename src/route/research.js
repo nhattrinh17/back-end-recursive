@@ -21,7 +21,7 @@ router.put(
 router.get('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, researchController.setPublicOrPrivate);
 router.post('/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
 router.get('/comment/:id', researchController.getComment);
-router.get('/image/:id', researchController.getImageResearchbyId);
+router.get('/file/:id', researchController.getFileResearchbyId);
 router.put('/like', authMiddleware.verifilyToken, researchController.increaseLikeResearchOrComment);
 router.get('/:id', researchController.getResearchById);
 router.get('/', researchController.getResearchPublic);
