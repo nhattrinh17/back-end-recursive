@@ -6,7 +6,7 @@ const ScientificResearchAvailableSchema = new Schema({
     idUser: { type: String, required: true },
     name: { type: String, required: true, text: true },
     description: { type: String, required: true, text: true },
-    image: {
+    file: {
         data: Buffer,
         contentType: String,
     },

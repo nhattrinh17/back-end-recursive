@@ -47,7 +47,7 @@ const authMiddleware = {
     },
     verifilyTokenAndAdminOrLecturers: async (req, res, next) => {
         authMiddleware.verifilyToken(req, res, () => {
-            if (req.user.isAdmin || req.user.is.isInstructor || req.user.isExamTeacher) {
+            if (req.user.isAdmin || req.user.is.isLecturers) {
                 next();
             } else {
                 return res.status(403).send('You are not authorized to perform this action');

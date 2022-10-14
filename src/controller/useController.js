@@ -123,12 +123,8 @@ const userController = {
             User.find({ isStudent: true })
                 .then((data) => res.status(200).send(data))
                 .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
-        } else if (type == 'instructor') {
-            User.find({ isInstructor: true })
-                .then((data) => res.status(200).send(data))
-                .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
-        } else if (type == 'examteacher') {
-            User.find({ isExamTeacher: true })
+        } else if (type == 'lecturers') {
+            User.find({ isLecturers: true })
                 .then((data) => res.status(200).send(data))
                 .catch((error) => res.status(404).send('Unable to retrieve data from database, please try again'));
         } else {

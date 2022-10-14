@@ -8,15 +8,15 @@ const router = express.Router();
 router.post(
     '/add',
     authMiddleware.verifilyTokenAndAdminOrLecturers,
-    upload.single('image'),
+    upload.single('file'),
     researchController.addResearchPublic,
 );
 router.put('/update/:id', authMiddleware.verifilyTokenAndAdminOrLecturers, researchController.updateResearchPublic);
 router.put(
-    '/update/image/:id',
+    '/update/file/:id',
     authMiddleware.verifilyTokenAndAdminOrLecturers,
-    upload.single('image'),
-    researchController.updateImageResearchPublic,
+    upload.single('file'),
+    researchController.updateFileResearchPublic,
 );
 router.get('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, researchController.setPublicOrPrivate);
 router.post('/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);

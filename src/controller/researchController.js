@@ -7,17 +7,17 @@ const researchController = {
     addResearchPublic: async (req, res) => {
         const idUser = req.user.id;
         const { name, description, scored } = req.body;
-        const img = fs.readFileSync(req.file.path);
-        const encode_img = img.toString('base64');
-        const final_img = {
+        const file = fs.readFileSync(req.file.path);
+        const encode_file = file.toString('base64');
+        const final_file = {
             contentType: req.file.mimetype,
-            data: new Buffer.from(encode_img, 'base64'),
+            data: new Buffer.from(encode_file, 'base64'),
         };
         const newsSientificResearchAvailable = new SientificResearchAvailable({
             idUser,
             name,
             description,
-            image: final_img,
+            file: final_file,
             scored,
         });
         newsSientificResearchAvailable
@@ -39,20 +39,20 @@ const researchController = {
             .catch((error) => res.status(403).send('Failed research update'));
     },
 
-    updateImageResearchPublic: async (req, res) => {
+    updateFileResearchPublic: async (req, res) => {
         const idResearch = req.params.id;
-        const img = fs.readFileSync(req.file.path);
-        const encode_img = img.toString('base64');
-        const final_img = {
+        const file = fs.readFileSync(req.file.path);
+        const encode_img = file.toString('base64');
+        const final_file = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_img, 'base64'),
         };
-        const updateImage = {
-            image: final_img,
+        const updateFile = {
+            file: final_file,
         };
-        SientificResearchAvailable.updateOne({ _id: idResearch }, updateImage)
-            .then((data) => res.status(200).send('Success research update image'))
-            .catch((error) => res.status(403).send('Failed research update image'));
+        SientificResearchAvailable.updateOne({ _id: idResearch }, updateFile)
+            .then((data) => res.status(200).send('Success research update file'))
+            .catch((error) => res.status(403).send('Failed research update file'));
     },
 
     setPublicOrPrivate: async (req, res) => {
