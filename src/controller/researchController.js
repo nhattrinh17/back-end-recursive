@@ -55,6 +55,17 @@ const researchController = {
             .catch((error) => res.status(403).send('Failed research update image'));
     },
 
+    setPublicOrPrivate: async (req, res) => {
+        const idResearch = req.params.id;
+        const isPublic = req.body.isPublic;
+        const dataUpdate = {
+            idPublic: isPublic,
+        };
+        SientificResearchAvailable.updateOne({ _id: idResearch }, dataUpdate)
+            .then((data) => res.status(200).send('Success research update '))
+            .catch((error) => res.status(403).send('Failed research update'));
+    },
+
     getImageResearchbyId: async (req, res) => {
         const idResearch = req.params.id;
         // res.send(idResearch);

@@ -18,6 +18,7 @@ router.put(
     upload.single('image'),
     researchController.updateImageResearchPublic,
 );
+router.get('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, researchController.setPublicOrPrivate);
 router.post('/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
 router.get('/comment/:id', researchController.getComment);
 router.get('/image/:id', researchController.getImageResearchbyId);
