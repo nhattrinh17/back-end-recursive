@@ -43,7 +43,7 @@ const userController = {
     },
 
     userRegister: async (req, res) => {
-        const { firstName, lastName, email, password, codeSudentOrLecturers } = req.body;
+        const { firstName, lastName, email, password, isStudent, isLecturers, codeSudentOrLecturers } = req.body;
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         const hashed = await bcrypt.hash(password, salt);
@@ -58,9 +58,8 @@ const userController = {
                     password: hashed,
                     codeSudentOrLecturers,
                     isAdmin: false,
-                    isInstructor: false,
-                    isExamTeacher: false,
-                    isStudent: true,
+                    isLecturers,
+                    isStudent,
                 });
                 newUser
                     .save()

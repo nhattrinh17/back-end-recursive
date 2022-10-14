@@ -13,8 +13,8 @@ const UserSchema = new Schema({
     },
     codeSudentOrLecturers: { type: Number, required: true },
     isAdmin: { type: Boolean, default: false },
-    isLecturers: { type: Boolean, default: false },
-    isStudent: { type: Boolean, default: true },
+    isLecturers: { type: Boolean, required: true },
+    isStudent: { type: Boolean, required: true },
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date },
 });

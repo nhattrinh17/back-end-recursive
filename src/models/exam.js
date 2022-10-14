@@ -12,6 +12,7 @@ const ExamSchema = new Schema({
     },
     idUserPost: { type: String, required: true },
     userPost: { type: String, required: true },
+    count: { type: Number, default: 0 },
     createAt: { type: Date, default: Date.now },
 });
 
