@@ -71,15 +71,16 @@ const researchController = {
         // res.send(idResearch);
         SientificResearchAvailable.findById(idResearch)
             .then((data) => {
-                const dataFile = data.image.data;
+                const dataFile = data.file.data;
                 const file = Buffer.from(dataFile, 'base64');
                 res.writeHead(200, {
-                    'Content-Type': data.image.contentType,
+                    'Content-Type': data.file.contentType,
                     'Content-Length': file.length,
                 });
                 res.end(file);
             })
-            .catch((error) => res.status(403).send('Id does not exist, please try again'));
+            .catch((error) => res.status(403).send(error.message));
+        // .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },
 
     getResearchById: async (req, res) => {
