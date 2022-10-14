@@ -18,7 +18,7 @@ router.put(
     upload.single('file'),
     researchController.updateFileResearchPublic,
 );
-router.get('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, researchController.setPublicOrPrivate);
+router.put('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, researchController.setPublicOrPrivate);
 router.post('/comment', authMiddleware.verifilyToken, researchController.addCommentResearch);
 router.get('/comment/:id', researchController.getComment);
 router.get('/file/:id', researchController.getFileResearchbyId);
