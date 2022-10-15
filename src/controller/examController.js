@@ -121,11 +121,8 @@ const examController = {
 
     setExamPublicOrPrivate: async (req, res) => {
         const idExam = req.params.id;
-        const status = req.body.status;
-        const updatePublic = {
-            isPublic: status,
-        };
-        exam.findByIdAndUpdate(idExam, updatePublic)
+        const { isPublic } = req.body;
+        exam.findByIdAndUpdate(idExam, { isPublic })
             .then((data) => res.status(200).send('Update exam status successfully'))
             .catch((eror) => res.status(403).send('Update failed exam status'));
     },
