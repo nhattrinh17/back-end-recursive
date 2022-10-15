@@ -118,6 +118,32 @@ const examController = {
             .then((data) => res.status(200).send('Delete exam successfully'))
             .catch((eror) => res.status(403).send('Delete failed exam'));
     },
+
+    setExamPublic: async (req, res) => {
+        const idExam = req.params.id;
+        const isPublic = req.body.isPublic;
+        const updatePublic = {
+            isPublic: isPublic,
+        };
+        exam.findByIdAndUpdate(idExam, updatePublic)
+            .then((data) => res.status(200).send('Update exam public successfully'))
+            .catch((eror) => res.status(403).send('Update failed exam public'));
+    },
+
+    countExamDownload: async (req, res) => {
+        const idExam = req.params.id;
+        exam.findById(idExam)
+            .then((data) => {
+                const count = data.count + 1;
+                const updateCount = {
+                    count: count,
+                };
+                exam.findByIdAndUpdate(idExam, updateCount)
+                    .then((data) => res.status(200).send('Update exam count download successfully'))
+                    .catch((eror) => res.status(403).send('Update failed exam count download'));
+            })
+            .catch((eror) => res.status(403).send('Update failed exam count download'));
+    },
 };
 
 module.exports = examController;
