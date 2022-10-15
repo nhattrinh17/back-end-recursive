@@ -15,5 +15,4 @@ router.put(
 );
 router.put('/update/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.updateSubject);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.deleteSubject);
-
 module.exports = router;
