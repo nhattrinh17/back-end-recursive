@@ -35,8 +35,8 @@ const examController = {
                     return res.send(eror.message);
                 });
         } else if (req.query.idExamSubject && !req.query.idDepartment) {
-            const idExamSubject = req.query.idExamSubject;
-            exam.find({ idExamSubject: idExamSubject }, { name: 1, idExamSubject: 1 })
+            const idSubject = req.query.idSubject;
+            exam.find({ idExamSubject: idSubject }, { name: 1, idExamSubject: 1 })
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
@@ -45,9 +45,9 @@ const examController = {
                 });
         } else {
             const idDepartment = req.query.idDepartment;
-            const idExamSubject = req.query.idExamSubject;
+            const idSubject = req.query.idExamSubject;
             exam.find(
-                { idExamSubject: idExamSubject, idDepartment: idDepartment },
+                { idExamSubject: idSubject, idDepartment: idDepartment },
                 { name: 1, idSubject: 1, idDepartment: 1 },
             )
                 .skip((page - 1) * 10)
