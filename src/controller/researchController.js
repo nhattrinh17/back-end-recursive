@@ -77,7 +77,7 @@ const researchController = {
                 //     'Content-Type': data.file.contentType,
                 //     'Content-Length': file.length,
                 // });
-                res.status(200).send(file.toString('base64'));
+                res.status(200).send({ data: file.toString('base64'), type: data.file.contentType });
             })
             .catch((error) => res.status(403).send(error.message));
         // .catch((error) => res.status(403).send('Id does not exist, please try again'));
