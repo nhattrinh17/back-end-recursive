@@ -119,15 +119,12 @@ const examController = {
             .catch((eror) => res.status(403).send('Delete failed exam'));
     },
 
-    setExamPublic: async (req, res) => {
+    setExamPublicOrPrivate: async (req, res) => {
         const idExam = req.params.id;
-        const isPublic = req.body.isPublic;
-        const updatePublic = {
-            isPublic: isPublic,
-        };
-        exam.findByIdAndUpdate(idExam, updatePublic)
-            .then((data) => res.status(200).send('Update exam public successfully'))
-            .catch((eror) => res.status(403).send('Update failed exam public'));
+        const { isPublic } = req.body;
+        exam.findByIdAndUpdate(idExam, { isPublic })
+            .then((data) => res.status(200).send('Update exam status successfully'))
+            .catch((eror) => res.status(403).send('Update failed exam status'));
     },
 
     countExamDownload: async (req, res) => {
