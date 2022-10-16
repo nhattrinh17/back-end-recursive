@@ -151,7 +151,7 @@ const userController = {
                 //     'Content-Type': data.avatar.contentType,
                 //     'Content-Length': img.length,
                 // });
-                res.send(dataImage);
+                res.status(200).send(dataImage);
             })
             .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },
