@@ -134,8 +134,8 @@ const userController = {
         const idUser = req.params.id;
         User.findById(idUser)
             .then((data) => {
-                const { firstName, lastName, email, codeSudentOrLecturers } = data;
-                const dataResponse = { firstName, lastName, email, codeSudentOrLecturers };
+                const { firstName, lastName, email, codeSudentOrLecturers, isLecturers, isStudent } = data;
+                const dataResponse = { firstName, lastName, email, codeSudentOrLecturers, isLecturers, isStudent };
                 return res.status(200).send(dataResponse);
             })
             .catch((error) => res.status(403).send('Id does not exist, please try again'));
