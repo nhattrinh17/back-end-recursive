@@ -15,4 +15,5 @@ router.put(
 );
 router.put('/update/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.updateSubject);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.deleteSubject);
+router.get('/get/imgSchool/:id', subjectController.getImgSchoolById);
 module.exports = router;
