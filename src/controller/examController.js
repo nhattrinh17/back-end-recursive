@@ -141,6 +141,17 @@ const examController = {
             })
             .catch((eror) => res.status(403).send('Update failed exam count download'));
     },
+
+    getFileExamById: async (req, res) => {
+        const idExam = req.params.id;
+        exam.findById(idExam)
+            .then((data) => {
+                const dataFile = data.fileExam.data;
+                const fileExam = Buffer.from(dataFile, 'base64');
+                res.status(200).send({ data: fileExam.toString('base64'), type: data.fileExam.contentType });
+            })
+            .catch((eror) => res.status(403).send('Get file exam failed'));
+    },
 };
 
 module.exports = examController;

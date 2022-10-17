@@ -87,6 +87,18 @@ const subjectController = {
             .then((data) => res.status(200).send('Update subject successfully'))
             .catch((eror) => res.status(403).send('Update failed subject'));
     },
+
+    getImgSchoolById: async (req, res) => {
+        const idSubject = req.params.id;
+        examSubjects
+            .findById(idSubject)
+            .then((data) => {
+                const dataImage = data.imgSchool.data;
+                const imgSchool = Buffer.from(dataImage, 'base64');
+                res.status(200).send({ data: imgSchool.toString('base64'), type: data.imgSchool.contentType });
+            })
+            .catch((eror) => res.status(403).send('Id does not exist, please try again'));
+    },
 };
 
 module.exports = subjectController;
