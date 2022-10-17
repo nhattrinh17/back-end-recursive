@@ -112,7 +112,10 @@ const researchController = {
                     return res.send(eror.message);
                 });
         } else {
-            SientificResearchAvailable.find({}, { name: 1, description: 1, scored: 1, countLike: 1 })
+            SientificResearchAvailable.find(
+                { idPublic: true },
+                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1 },
+            )
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
