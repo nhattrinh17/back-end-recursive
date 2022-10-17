@@ -5,7 +5,7 @@ const exam = require('../models/exam');
 const examController = {
     getExams: async (req, res) => {
         const { page = 1 } = req.query;
-        exam.find({}, { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 })
+        exam.find({}, { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 })
             .skip((page - 1) * 10)
             .limit(10)
             .then((data) => res.status(200).send(data))
