@@ -104,10 +104,7 @@ const examController = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_file, 'base64'),
         };
-        const updateFile = {
-            fileExam: final_file,
-        };
-        exam.findByIdAndUpdate(idExam, updateFile)
+        exam.findByIdAndUpdate(idExam, { fileExam: final_file })
             .then((data) => res.status(200).send('Update exam file successfully'))
             .catch((eror) => res.status(403).send('Update failed exam file'));
     },

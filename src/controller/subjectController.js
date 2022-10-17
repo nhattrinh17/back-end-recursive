@@ -79,11 +79,8 @@ const subjectController = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_img, 'base64'),
         };
-        const updateImage = {
-            imgSchool: final_img,
-        };
         examSubjects
-            .findByIdAndUpdate(idSubject, updateImage)
+            .findByIdAndUpdate(idSubject, { imgSchool: final_img })
             .then((data) => res.status(200).send('Update subject successfully'))
             .catch((eror) => res.status(403).send('Update failed subject'));
     },
