@@ -47,10 +47,7 @@ const researchController = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_img, 'base64'),
         };
-        const updateFile = {
-            file: final_file,
-        };
-        SientificResearchAvailable.updateOne({ _id: idResearch }, updateFile)
+        SientificResearchAvailable.updateOne({ _id: idResearch }, { file: final_file })
             .then((data) => res.status(200).send('Success research update file'))
             .catch((error) => res.status(403).send('Failed research update file'));
     },

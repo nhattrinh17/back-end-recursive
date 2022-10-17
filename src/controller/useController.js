@@ -183,10 +183,7 @@ const userController = {
                 contentType: req.file.mimetype,
                 image: new Buffer.from(encode_img, 'base64'),
             };
-            const newUser = {
-                avatar: final_img,
-            };
-            User.updateOne({ _id: req.params.id }, newUser)
+            User.updateOne({ _id: req.params.id }, { avatar: final_img })
                 .then((data) => {
                     res.send('User profile update successful');
                 })
