@@ -18,4 +18,5 @@ router.put(
 router.put('/update/status/:id', authMiddleware.verifilyTokenAndAdmin, examController.setExamPublicOrPrivate);
 router.put('/update/count/:id', examController.countExamDownload);
 router.get('/file/:id', examController.getFileExamById);
+router.get('/:id', examController.getExamById);
 module.exports = router;

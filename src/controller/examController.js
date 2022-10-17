@@ -14,6 +14,15 @@ const examController = {
             });
     },
 
+    getExamById: async (req, res) => {
+        const idExam = req.params.id;
+        exam.findById(idExam)
+            .then((data) => res.status(200).send(data))
+            .catch((eror) => {
+                return res.send(eror.message);
+            });
+    },
+
     getExamsBySearch: async (req, res) => {
         const { page = 1 } = req.query;
         if (req.query.name) {
