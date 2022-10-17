@@ -5,7 +5,7 @@ const exam = require('../models/exam');
 const examController = {
     getExams: async (req, res) => {
         const { page = 1 } = req.query;
-        exam.find({}, { name: 1 })
+        exam.find({}, { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 })
             .skip((page - 1) * 10)
             .limit(10)
             .then((data) => res.status(200).send(data))
@@ -18,7 +18,10 @@ const examController = {
         const { page = 1 } = req.query;
         if (req.query.name) {
             const name = req.query.name;
-            exam.find({ $text: { $search: name } }, { name: 1 })
+            exam.find(
+                { $text: { $search: name } },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+            )
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
@@ -27,7 +30,10 @@ const examController = {
                 });
         } else if (req.query.idDepartment && !req.query.idExamSubject) {
             const idDepartment = req.query.idDepartment;
-            exam.find({ idDepartment: idDepartment }, { name: 1, idDepartment: 1 })
+            exam.find(
+                { idDepartment: idDepartment },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+            )
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
@@ -36,7 +42,10 @@ const examController = {
                 });
         } else if (req.query.idExamSubject && !req.query.idDepartment) {
             const idSubject = req.query.idSubject;
-            exam.find({ idExamSubject: idSubject }, { name: 1, idExamSubject: 1 })
+            exam.find(
+                { idExamSubject: idSubject },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+            )
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
@@ -48,7 +57,7 @@ const examController = {
             const idSubject = req.query.idExamSubject;
             exam.find(
                 { idExamSubject: idSubject, idDepartment: idDepartment },
-                { name: 1, idSubject: 1, idDepartment: 1 },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
