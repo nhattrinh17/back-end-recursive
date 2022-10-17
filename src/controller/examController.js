@@ -147,8 +147,8 @@ const examController = {
         exam.findById(idExam)
             .then((data) => {
                 const dataFile = data.fileExam.data;
-                const file = Buffer.from(dataFile, 'base64');
-                res.status(200).send({ data: file.toString('base64'), type: data.file.contentType });
+                const fileExam = Buffer.from(dataFile, 'base64');
+                res.status(200).send({ data: fileExam.toString('base64'), type: data.fileExam.contentType });
             })
             .catch((eror) => res.status(403).send('Get file exam failed'));
     },

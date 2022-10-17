@@ -93,8 +93,9 @@ const subjectController = {
         examSubjects
             .findById(idSubject)
             .then((data) => {
-                const dataImage = data.imgSchool;
-                res.status(200).send(dataImage);
+                const dataImage = data.imgSchool.data;
+                const imgSchool = Buffer.from(dataImage, 'base64');
+                res.status(200).send({ data: imgSchool.toString('base64'), type: data.imgSchool.contentType });
             })
             .catch((eror) => res.status(403).send('Id does not exist, please try again'));
     },
