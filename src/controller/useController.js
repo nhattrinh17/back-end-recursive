@@ -145,13 +145,14 @@ const userController = {
         const idUser = req.params.id;
         User.findById(idUser)
             .then((data) => {
-                const dataImage = data.avatar;
+                const dataImage = data.avatar.data;
+                const avatar = Buffer.from(dataImage, 'base64');
                 // const img = Buffer.from(dataImage, 'base64');
                 // res.writeHead(200, {
                 //     'Content-Type': data.avatar.contentType,
                 //     'Content-Length': img.length,
                 // });
-                res.status(200).send(dataImage);
+                res.status(200).send({ data: avatar.toString, type: data.avatar.contentType });
             })
             .catch((error) => res.status(403).send('Id does not exist, please try again'));
     },
