@@ -32,8 +32,6 @@ const subjectController = {
         const idDepartment = req.query.idDepartment;
         examSubjects
             .find({ idDepartment: idDepartment }, { name: 1 })
-            .skip((page - 1) * 10)
-            .limit(10)
             .then((data) => res.status(200).send(data))
             .catch((eror) => {
                 return res.send(eror.message);
