@@ -83,7 +83,7 @@ const userController = {
                 const match = await bcrypt.compare(password, user.password);
                 if (match) {
                     const idUser = user._id;
-                    const { firstName, lastName, email, isStudent, isLecturers } = user;
+                    const { firstName, lastName, email, isStudent, isLecturers, isAdmin } = user;
                     const accessToken = userController.generateAccessToken(user);
                     const newTokenUser = new UserToken({
                         idUser,
@@ -100,6 +100,7 @@ const userController = {
                             isStudent,
                             isLecturers,
                             refreshToken,
+                            isAdmin,
                         };
                         return res.status(200).send(dataResponse);
                     });
