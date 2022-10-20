@@ -15,9 +15,9 @@ router.put(
     upload.single('avatar'),
     userController.updateAvatarUser,
 );
-router.get('/avatar/:id', authMiddleware.verifilyTokenAndAdminOrAuth, userController.getAvatarUserById);
+router.get('/avatar/:id', userController.getAvatarUserById);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, userController.deleteUser);
-router.get('/:id', authMiddleware.verifilyTokenAndAdminOrAuth, userController.getUserById);
+router.get('/:id', userController.getUserById);
 router.get('/', authMiddleware.verifilyTokenAndAdmin, userController.getUserByObject);
 
 module.exports = router;
