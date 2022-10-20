@@ -16,5 +16,5 @@ router.put(
 router.put('/update/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.updateSubject);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.deleteSubject);
 router.get('/img/:id', subjectController.getImgSchoolById);
-router.get('/get', subjectController.getSubjectsByIdDepartment);
+router.get('/get/:id', subjectController.getSubjectsByIdDepartment);
 module.exports = router;

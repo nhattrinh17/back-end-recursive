@@ -28,8 +28,7 @@ const subjectController = {
     },
 
     getSubjectsByIdDepartment: async (req, res) => {
-        const { page = 1 } = req.query;
-        const idDepartment = req.query.idDepartment;
+        const idDepartment = req.params.id;
         examSubjects
             .find({ idDepartment: idDepartment }, { name: 1 })
             .then((data) => res.status(200).send(data))
