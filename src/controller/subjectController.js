@@ -27,6 +27,19 @@ const subjectController = {
         }
     },
 
+    getSubjectsByIdDepartment: async (req, res) => {
+        const { page = 1 } = req.query;
+        const idDepartment = req.query.idDepartment;
+        examSubjects
+            .find({ idDepartment: idDepartment }, { name: 1 })
+            .skip((page - 1) * 10)
+            .limit(10)
+            .then((data) => res.status(200).send(data))
+            .catch((eror) => {
+                return res.send(eror.message);
+            });
+    },
+
     addSubject: async (req, res) => {
         const { name, school, userCreate, idDepartment } = req.body;
         const img = fs.readFileSync(req.file.path);
