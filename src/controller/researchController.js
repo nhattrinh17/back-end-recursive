@@ -97,9 +97,11 @@ const researchController = {
         const { page = 1 } = req.query;
         if (req.query.name) {
             const name = req.query.name;
-            SientificResearchAvailable.ensureIndexes({ name: 'text' });
+            console.log(name);
+            // SientificResearchAvailable.ensureIndexes({ name: 'text' });
             SientificResearchAvailable.find(
                 { $text: { $search: name } },
+                { idPublic: true },
                 { name: 1, description: 1, scored: 1, countLike: 1 },
             )
                 .skip((page - 1) * 10)
