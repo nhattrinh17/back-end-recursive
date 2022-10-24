@@ -29,7 +29,7 @@ const examController = {
             const name = req.query.name;
             exam.find(
                 { $text: { $search: name } },
-                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
@@ -41,7 +41,7 @@ const examController = {
             const idDepartment = req.query.idDepartment;
             exam.find(
                 { idDepartment: idDepartment },
-                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
@@ -53,7 +53,7 @@ const examController = {
             const idSubject = req.query.idSubject;
             exam.find(
                 { idExamSubject: idSubject },
-                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
@@ -66,7 +66,7 @@ const examController = {
             const idSubject = req.query.idExamSubject;
             exam.find(
                 { idExamSubject: idSubject, idDepartment: idDepartment },
-                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1 },
+                { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
