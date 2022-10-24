@@ -11,7 +11,7 @@ router.put(
     '/update/img/:id',
     authMiddleware.verifilyTokenAndAdmin,
     upload.single('imgSchool'),
-    subjectController.updateSubject,
+    subjectController.updateImgSchool,
 );
 router.put('/update/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.updateSubject);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, subjectController.deleteSubject);

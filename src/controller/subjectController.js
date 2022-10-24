@@ -81,7 +81,7 @@ const subjectController = {
             .catch((eror) => res.status(403).send('Update failed subject'));
     },
 
-    updateImgSubject: async (req, res) => {
+    updateImgSchool: async (req, res) => {
         const idSubject = req.params.id;
         const img = fs.readFileSync(req.file.path);
         const encode_img = img.toString('base64');
@@ -89,6 +89,7 @@ const subjectController = {
             contentType: req.file.mimetype,
             data: new Buffer.from(encode_img, 'base64'),
         };
+
         examSubjects
             .findByIdAndUpdate(idSubject, { imgSchool: final_img })
             .then((data) => res.status(200).send('Update subject successfully'))
