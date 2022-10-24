@@ -23,6 +23,7 @@ router.post('/comment', authMiddleware.verifilyToken, researchController.addComm
 router.get('/comment/:id', researchController.getComment);
 router.get('/file/:id', researchController.getFileResearchbyId);
 router.put('/like', authMiddleware.verifilyToken, researchController.increaseLikeResearchOrComment);
+router.get('/private', authMiddleware.verifilyTokenAndAdmin, researchController.getResearchPrivate);
 router.get('/:id', researchController.getResearchById);
 router.get('/', researchController.getResearchPublic);
 

@@ -20,8 +20,7 @@ const authMiddleware = {
                         }
                     });
                 })
-                // .catch((error) => res.status(403).send('Id does not exist'));
-                .catch((error) => res.status(403).send(error.message));
+                .catch((error) => res.status(403).send('Id does not exist'));
         } else {
             return res.status(404).send('Please try again later or login again');
         }
