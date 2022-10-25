@@ -158,11 +158,6 @@ const userController = {
             .then((data) => {
                 const dataImage = data.avatar.image;
                 const avatar = Buffer.from(dataImage, 'base64');
-                // const img = Buffer.from(dataImage, 'base64');
-                // res.writeHead(200, {
-                //     'Content-Type': data.avatar.contentType,
-                //     'Content-Length': img.length,
-                // });
                 res.status(200).send({ data: avatar.toString('base64'), type: data.avatar.contentType });
             })
             .catch((error) => res.status(403).send('Id does not exist, please try again'));

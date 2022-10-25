@@ -16,7 +16,15 @@ const examController = {
 
     getExamById: async (req, res) => {
         const idExam = req.params.id;
-        exam.findById(idExam)
+        exam.findById(idExam, {
+            name: 1,
+            isPublic: 1,
+            createAt: 1,
+            count: 1,
+            idDepartment: 1,
+            idExamSubject: 1,
+            idUserPost: 1,
+        })
             .then((data) => res.status(200).send(data))
             .catch((eror) => {
                 return res.send(eror.message);
