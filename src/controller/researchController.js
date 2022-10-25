@@ -84,8 +84,8 @@ const researchController = {
         const id = req.params.id;
         SientificResearchAvailable.findById(id)
             .then((data) => {
-                const { name, description, countLike, scored, createAt } = data;
-                const dataRes = { name, description, countLike, scored, createAt };
+                const { idUser, name, description, countLike, scored, idPublic, createAt } = data;
+                const dataRes = { idUser, name, description, countLike, scored, idPublic, createAt };
                 return res.status(200).send(dataRes);
             })
             .catch((error) => {
@@ -110,7 +110,7 @@ const researchController = {
         } else {
             SientificResearchAvailable.find(
                 { idPublic: true },
-                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1 },
+                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1, idUser: 1, idPublic: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
