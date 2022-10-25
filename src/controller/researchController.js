@@ -99,7 +99,7 @@ const researchController = {
             const name = req.query.name;
             SientificResearchAvailable.find(
                 { $text: { $search: name } },
-                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1, idPublic: 1 },
+                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1, idPublic: 1, createAt: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
@@ -110,7 +110,7 @@ const researchController = {
         } else {
             SientificResearchAvailable.find(
                 { idPublic: true },
-                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1, idUser: 1, idPublic: 1 },
+                { name: 1, description: 1, scored: 1, countLike: 1, idUser: 1, idUser: 1, idPublic: 1, createAt: 1 },
             )
                 .skip((page - 1) * 10)
                 .limit(10)
