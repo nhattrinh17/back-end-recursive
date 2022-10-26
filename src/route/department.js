@@ -7,5 +7,5 @@ const router = express.Router();
 router.post('/add', authMiddleware.verifilyTokenAndAdmin, departmentController.addDepartment);
 router.get('/', departmentController.getDepartments);
 router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdmin, departmentController.deleteDepartment);
-
+router.get('/id/:name', departmentController.getIdDepartmentByName);
 module.exports = router;

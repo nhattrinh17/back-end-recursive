@@ -51,6 +51,14 @@ const departmentController = {
             .then((data) => res.status(200).send('Delete department successfully'))
             .catch((eror) => res.status(403).send('Delete failed department'));
     },
+
+    getIdDepartmentByName: async (req, res) => {
+        const name = req.params.name;
+        department
+            .findOne({ name: name }, { _id: 1 })
+            .then((data) => res.status(200).send(data))
+            .catch((eror) => res.status(403).send('Get id department failed'));
+    },
 };
 
 module.exports = departmentController;
