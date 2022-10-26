@@ -88,13 +88,18 @@ const examController = {
     addExam: async (req, res) => {
         const idUserPost = req.user.id;
         const { name, idDepartment, idExamSubject, userPost, fileExam } = req.body;
-        file = fileExam.split(';base64,');
-        file[0] = fileExam[0].split(':')[1];
+        // file = fileExam.split(';base64,');
+        // file[0] = fileExam[0].split(':')[1];
+        // const final_file = {
+        //     contentType: file[0],
+        //     data: new Buffer.from(file[1], 'base64'),
+        // };
+        const file = fs.readFileSync(req.file.path);
+        const encode_file = file.toString('base64');
         const final_file = {
-            contentType: file[0],
-            data: new Buffer.from(file[1], 'base64'),
+            contentType: req.file.mimetype,
+            data: new Buffer.from(encode_file, 'base64'),
         };
-        console.log(final_file);
         exam.findOne({ name: name, idExamSubject: idExamSubject, idDepartment: idDepartment }).then((data) => {
             if (data) {
                 return res.status(403).send('Exam already exists');
