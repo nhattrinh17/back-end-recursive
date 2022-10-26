@@ -8,7 +8,7 @@ const subjectController = {
         if (req.query.name) {
             const name = req.query.name;
             examSubjects
-                .find({ $text: { $search: name } }, { name: 1 })
+                .find({ name: name }, { name: 1 })
                 .skip((page - 1) * 10)
                 .limit(10)
                 .then((data) => res.status(200).send(data))
