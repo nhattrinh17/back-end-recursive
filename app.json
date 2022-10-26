@@ -4,6 +4,5 @@
     "repository": "https://github.com/heroku/node-js-getting-started",
     "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
     "keywords": ["node", "express", "heroku"],
-    "image": "heroku/nodejs",
-    "proxy": "https://ving2k2.github.io/rescusiveVer2.github.io"
+    "image": "heroku/nodejs"
 }
