@@ -181,6 +181,15 @@ const examController = {
             })
             .catch((eror) => res.status(403).send('Get file exam failed'));
     },
+
+    getExamPrivate: async (req, res) => {
+        exam.find(
+            { isPublic: false },
+            { name: 1, isPublic: 1, createAt: 1, count: 1, idDepartment: 1, idExamSubject: 1, idUserPost: 1 },
+        )
+            .then((data) => res.status(200).send(data))
+            .catch((eror) => res.status(403).send('Get exam failed'));
+    },
 };
 
 module.exports = examController;
