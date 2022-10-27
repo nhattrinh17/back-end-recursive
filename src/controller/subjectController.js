@@ -27,6 +27,16 @@ const subjectController = {
         }
     },
 
+    getSubjectById: async (req, res) => {
+        const idSubject = req.params.id;
+        examSubjects
+            .findById(idSubject, { name: 1 })
+            .then((data) => res.status(200).send(data))
+            .catch((eror) => {
+                return res.send(eror.message);
+            });
+    },
+
     getSubjectsByIdDepartment: async (req, res) => {
         const idDepartment = req.params.id;
         examSubjects
