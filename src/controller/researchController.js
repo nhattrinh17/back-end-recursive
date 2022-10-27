@@ -195,6 +195,13 @@ const researchController = {
                 .catch((error) => res.status(403).send('Invalid research id'));
         }
     },
+
+    deleteResearch: async (req, res) => {
+        const idResearch = req.params.id;
+        SientificResearchAvailable.findByIdAndDelete(idResearch)
+            .then((data) => res.status(200).send('Delete research successfully'))
+            .catch((error) => res.status(403).send('Delete research failed'));
+    },
 };
 
 module.exports = researchController;

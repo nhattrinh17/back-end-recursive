@@ -26,5 +26,5 @@ router.put('/like', authMiddleware.verifilyToken, researchController.increaseLik
 router.get('/private', authMiddleware.verifilyTokenAndAdmin, researchController.getResearchPrivate);
 router.get('/:id', researchController.getResearchById);
 router.get('/', researchController.getResearchPublic);
-
+router.delete('/delete/:id', authMiddleware.verifilyTokenAndAdminOrLecturers, researchController.deleteResearch);
 module.exports = router;
